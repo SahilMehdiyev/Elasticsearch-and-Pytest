@@ -15,6 +15,17 @@ files = [
 tests = ["mypy (>=0.800)", "pytest", "pytest-asyncio"]
 
 [[package]]
+name = "attr"
+version = "0.3.2"
+description = "Simple decorator to set attributes of target function or class in a DRY way."
+optional = false
+python-versions = "*"
+files = [
+    {file = "attr-0.3.2-py2.py3-none-any.whl", hash = "sha256:4f4bffeea8c27387bde446675a7ac24f3b8fea1075f12d849b5f5c5181fc8336"},
+    {file = "attr-0.3.2.tar.gz", hash = "sha256:1ceebca768181cdcce9827611b1d728e592be5d293911539ea3d0b0bfa1146f4"},
+]
+
+[[package]]
 name = "black"
 version = "24.10.0"
 description = "The uncompromising code formatter."
@@ -399,4 +410,4 @@ files = [
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.12"
-content-hash = "5aefec2d0bb4a1a13d4e331e95ae3cbb29ec3e8cbad2bc98c739c3fbd12316af"
+content-hash = "9e945d1fac88b69db8ecd7aaa84529b82bfb379431a76ab30f9c3692699b0916"
