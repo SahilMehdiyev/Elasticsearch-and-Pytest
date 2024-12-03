@@ -17,9 +17,21 @@ Including another URLconf
 
 from django.contrib import admin
 from django.urls import path
-from drf.views import CategoryListAPIView
+
+from drf.views import (
+    CategoryListAPIView,
+    ProductByCategory,
+    ProductInventoryByWebId,
+)
+# from search.views import SearchProductInventory
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('api/inventory/categories/',CategoryListAPIView.as_view(), name='category_list'),  # API endpoint for retrieving all categories.
+    path("admin/", admin.site.urls),
+    path("api/inventory/category/all/", CategoryListAPIView.as_view()),
+    path(
+        "api/inventory/products/category/<str:query>/",
+        ProductByCategory.as_view(),
+    ),
+    path("api/inventory/<int:query>/", ProductInventoryByWebId.as_view()),
+    # path("api/search/<str:query>/", SearchProductInventory.as_view()),
 ]
