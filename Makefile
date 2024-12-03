@@ -13,6 +13,9 @@ run_makemigrations:
 pre_commit_run:
 	pre-commit run --files
 
+run_pytest:
+	poetry run pytest
+
 install:
 	poetry install
 
@@ -28,3 +31,4 @@ run_celery_beat:
 .PHONY: shell
 .PHONY: run_celery_worker
 .PHONY: run_celery_beat
+.PHONY: pytest
