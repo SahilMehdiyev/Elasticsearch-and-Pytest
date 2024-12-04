@@ -8,9 +8,9 @@ services:
     ports:
       - 5432:5432
     environment:
-      - POSTGRES_USER=${POSTGRES_USER}
-      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
-      - POSTGRES_DB=${POSTGRES_DB}
+      - POSTGRES_DB=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
 
   elasticsearch:
     container_name: search
@@ -21,7 +21,7 @@ services:
       - bootstrap.memory_lock=true
       - ES_JAVA_OPTS=-Xms128m -Xmx128m
     ports:
-      - "9200:9200"
+      - "9201:9200"
     volumes:
       - ./elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml
     depends_on:

@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'inventory',
+    'demo',
     'drf',
     'django_elasticsearch_dsl',
 ]
@@ -94,13 +95,13 @@ WSGI_APPLICATION = 'ecommerce.wsgi.application'
 
 
 # DATABASES = {
-#     "default": {
-#         "ENGINE": "django.db.backends.postgresql_psycopg2",
-#         "NAME": "postgres",
-#         "USER": "postgres",
-#         "PASSWORD": "postgres",
-#         "HOST": "127.0.0.1",
-#         "PORT": "5432",
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql
+#         'NAME': 'your_db_name',     
+#         'USER': 'your_db_user',             
+#         'PASSWORD': 'your_db_password',  
+#         'HOST': 'localhost',                  
+#         'PORT': '5432',                             
 #     }
 # }
 
