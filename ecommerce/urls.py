@@ -23,7 +23,7 @@ from drf.views import (
     ProductByCategory,
     ProductInventoryByWebId,
 )
-# from search.views import SearchProductInventory
+from search.views import SearchProductInventory
 
 urlpatterns = [
     path("admin/", admin.site.urls),
@@ -33,5 +33,5 @@ urlpatterns = [
         ProductByCategory.as_view(),
     ),
     path("api/inventory/<int:query>/", ProductInventoryByWebId.as_view()),
-    # path("api/search/<str:query>/", SearchProductInventory.as_view()),
+    path("api/search/<str:query>/", SearchProductInventory.as_view()),
 ]

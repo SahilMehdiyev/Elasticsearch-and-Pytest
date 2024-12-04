@@ -41,16 +41,17 @@ INSTALLED_APPS = [
     'rest_framework',
     'inventory',
     'demo',
+    'search',
     'drf',
     'django_elasticsearch_dsl',
 ]
 
 REST_FRAMEWORK = {
-
-    'DEFAULT_PERMISSION_CLASSES': [
-        'rest_framework.permissions.AllowAny',
-    ]
+    "DEFAULT_PERMISSION_CLASS": ["rest_framework.permissions.AllowAny"],
+    "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.LimitOffsetPagination",
+    "PAGE_SIZE": 10,
 }
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -94,16 +95,17 @@ WSGI_APPLICATION = 'ecommerce.wsgi.application'
 # }
 
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql
-#         'NAME': 'your_db_name',     
-#         'USER': 'your_db_user',             
-#         'PASSWORD': 'your_db_password',  
-#         'HOST': 'localhost',                  
-#         'PORT': '5432',                             
-#     }
-# }
+DATABASES = {
+    "default": {
+        "ENGINE": "django.db.backends.postgresql_psycopg2",
+        "NAME": "postgres",
+        "USER": "postgres",
+        "PASSWORD": "postgres",
+        "HOST": "127.0.0.1",
+        "PORT": "5432",
+    }
+}
+
 
 
 # Password validation
