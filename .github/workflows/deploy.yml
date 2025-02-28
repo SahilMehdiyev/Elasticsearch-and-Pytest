@@ -31,7 +31,8 @@ jobs:
           echo "$HOME/.local/bin" >> $GITHUB_PATH
 
       - name: Configure Poetry
-        run: poetry config virtualenvs.create false
+        run: poetry config virtualenvs.create true --local
+
 
       - name: Install Dependencies
         run: poetry install --no-root
