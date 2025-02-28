@@ -1,0 +1,68 @@
+name: CI/CD Pipeline for Elasticsearch Project
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  test:
+    name: Run Pytest and Elasticsearch
+    runs-on: ubuntu-latest
+    services:
+      elasticsearch:
+        image: docker.elastic.co/elasticsearch/elasticsearch:7.14.0
+        env:
+          discovery.type: single-node
+          ES_JAVA_OPTS: "-Xms512m -Xmx512m"
+        ports:
+          - 9200:9200
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.11"
+
+      - name: Install Dependencies
+        run: |
+          python -m venv venv
+          source venv/bin/activate
+          pip install -r requirements.txt
+
+      - name: Wait for Elasticsearch
+        run: |
+          echo "Waiting for Elasticsearch to start..."
+          sleep 10
+
+      - name: Run Tests with Pytest
+        run: |
+          source venv/bin/activate
+          pytest --disable-warnings --maxfail=5
+
+  build_and_push:
+    name: Build and Push Docker Image
+    runs-on: ubuntu-latest
+    needs: test
+    if: success()
+    
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Login to Docker Hub
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKER_HUB_USERNAME }}
+          password: ${{ secrets.DOCKER_HUB_PASSWORD }}
+
+      - name: Build and Push Docker Image
+        run: |
+          docker build -t ${{ secrets.DOCKER_HUB_USERNAME }}/elasticsearch_project:latest .
+          docker push ${{ secrets.DOCKER_HUB_USERNAME }}/elasticsearch_project:latest
