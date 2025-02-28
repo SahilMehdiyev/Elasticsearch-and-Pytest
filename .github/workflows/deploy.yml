@@ -10,7 +10,7 @@ on:
 
 jobs:
   test:
-    name: Run Pytest and Elasticsearch
+    name: Run Tests with Poetry & Elasticsearch
     runs-on: ubuntu-latest
     services:
       elasticsearch:
@@ -25,16 +25,16 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v4
 
-      - name: Set up Python
-        uses: actions/setup-python@v4
-        with:
-          python-version: "3.11"
+      - name: Install Poetry
+        run: |
+          curl -sSL https://install.python-poetry.org | python3 -
+          echo "$HOME/.local/bin" >> $GITHUB_PATH
+
+      - name: Configure Poetry
+        run: poetry config virtualenvs.create false
 
       - name: Install Dependencies
-        run: |
-          python -m venv venv
-          source venv/bin/activate
-          pip install -r requirements.txt
+        run: poetry install --no-root
 
       - name: Wait for Elasticsearch
         run: |
@@ -42,16 +42,14 @@ jobs:
           sleep 10
 
       - name: Run Tests with Pytest
-        run: |
-          source venv/bin/activate
-          pytest --disable-warnings --maxfail=5
+        run: poetry run pytest --disable-warnings --maxfail=5
 
   build_and_push:
     name: Build and Push Docker Image
     runs-on: ubuntu-latest
     needs: test
     if: success()
-    
+
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
